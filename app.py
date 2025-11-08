@@ -180,7 +180,7 @@ section[data-testid="stSidebar"] div.stButton > button:hover {
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("college_student_placement_dataset.csv")
+    df = pd.read_csv("csv_file")
     df.drop_duplicates(subset="College_ID", inplace=True)
     df["Internship_Experience"] = df["Internship_Experience"].map({"Yes": 1, "No": 0})
     df["Placement"] = df["Placement"].map({"Yes": 1, "No": 0})
@@ -215,10 +215,10 @@ if st.sidebar.button("Get Advice"):
         try:
             import os
             llm = ChatOpenAI(
-                model_name="llama-3.1-8b-instant", 
+                model_name="model_name", 
                 temperature=0.5, 
-                openai_api_key="***REMOVED-GROQ-KEY***",
-                openai_api_base="https://api.groq.com/openai/v1")
+                openai_api_key="your_api_key",
+                openai_api_base="your_api_base")
 
             response = llm([HumanMessage(content=user_question)])
             answer = response.content if hasattr(response, "content") else str(response)
