@@ -210,14 +210,18 @@ user_question = st.sidebar.text_area(
 )
 
 # Button to trigger AI response
-    if st.sidebar.button("Get Advice"):
-    if user_question.strip():
+if st.sidebar.button("Get Advice"):
+    # only run if user provided a question
+    if user_question and user_question.strip():
         try:
             import os
+
             # Read Groq API key from environment to avoid committing secrets to source control
             groq_api_key = os.getenv("GROQ_API_KEY")
             if not groq_api_key:
-                raise Exception("GROQ_API_KEY environment variable is not set. Set it before running the app.")
+                raise Exception(
+                    "GROQ_API_KEY environment variable is not set. Set it before running the app."
+                )
 
             llm = ChatOpenAI(
                 model_name="llama-3.1-8b-instant",
